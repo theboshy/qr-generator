@@ -17,18 +17,26 @@ import java.io.FileInputStream;
 
 public class TestQRCode {
 
+    //ruta de almacenamiento
     private static final String PATH = System.getProperty("user.home") + "\\Desktop\\";
-    private static final String FILE_NAME = "QRc.png";
+    //nombre archivo
+    private static final String FILE_NAME = "QRc";
+    //tipo archivo
+    private static final String FILE_EXT = ".png";
+    //tamaño en eje Y
+    private static final int H = 300;
+    //tamaño en eje X
+    private static final int W = 300;
 
     public static void main(String[] args) {
 
         TestQRCode qr = new TestQRCode();
-        File f = new File(PATH + FILE_NAME);
-        String text = "boshydecode";
+        File f = new File(PATH + FILE_NAME + FILE_EXT);
+        String text = "qrcodexa";
 
         try {
 
-            qr.createQrCode(f, text, 300, 300);
+            qr.createQrCode(f, text, H, W);
             System.out.println("QRCode Generated: " + f.getAbsolutePath());
 
             String qrString = qr.decoder(f);
@@ -42,6 +50,7 @@ public class TestQRCode {
 
     public File createQrCode(File file, String text, int y, int x) throws Exception {
 
+        //if (!file.exists()) {
         QRCodeWriter writer = new QRCodeWriter();
         BitMatrix matrix = writer.encode(text, com.google.zxing.BarcodeFormat.QR_CODE, x, y);
 
@@ -63,8 +72,7 @@ public class TestQRCode {
             }
         }
 
-        ImageIO.write(image, "png", file);
-
+        ImageIO.write(image, FILE_EXT.replace(".", ""), file);
         return file;
 
     }
