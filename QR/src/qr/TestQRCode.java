@@ -19,7 +19,8 @@ public class TestQRCode {
 
     //ruta de almacenamiento
     private static final String PATH = System.getProperty("user.home") + "\\Desktop\\";
-    //nombre archivo
+    //nombre archiv
+    
     private static final String FILE_NAME = "QRc";
     //tipo archivo
     private static final String FILE_EXT = ".png";
