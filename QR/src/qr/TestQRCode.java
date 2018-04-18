@@ -27,13 +27,10 @@ public class TestQRCode {
         String text = "boshydecode";
 
         try {
-
             qr.createQrCode(f, text, 300, 300);
             System.out.println("QRCode Generated: " + f.getAbsolutePath());
-
             String qrString = qr.decoder(f);
             System.out.println("Text QRCode: " + qrString);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,20 +38,16 @@ public class TestQRCode {
     }
 
     public File createQrCode(File file, String text, int y, int x) throws Exception {
-
         QRCodeWriter writer = new QRCodeWriter();
         BitMatrix matrix = writer.encode(text, com.google.zxing.BarcodeFormat.QR_CODE, x, y);
-
         BufferedImage image = new BufferedImage(matrix.getWidth(), matrix.getHeight(), BufferedImage.TYPE_INT_RGB);
         image.createGraphics();
-
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         //fondo
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, matrix.getWidth(), matrix.getHeight());
         //codigo
         graphics.setColor(Color.BLACK);
-
         for (int runnerX = 0; runnerX < matrix.getWidth(); runnerX++) {
             for (int runnerY = 0; runnerY < matrix.getHeight(); runnerY++) {
                 if (matrix.get(runnerX, runnerY)) {
@@ -62,22 +55,15 @@ public class TestQRCode {
                 }
             }
         }
-
         ImageIO.write(image, "png", file);
-
         return file;
-
     }
 
     public String decoder(File file) throws Exception {
-
         FileInputStream inputStream = new FileInputStream(file);
-
         BufferedImage image = ImageIO.read(inputStream);
-
         LuminanceSource source = new BufferedImageLuminanceSource(image);
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
         QRCodeReader reader = new QRCodeReader();
         Result result = reader.decode(bitmap);
         return result.getText();
