@@ -14,24 +14,64 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.nio.file.FileAlreadyExistsException;
 
 public class TestQRCode {
 
     private static final String PATH = System.getProperty("user.home") + "\\Desktop\\";
-    private static final String FILE_NAME = "QRc.png";
+    private static final String FILE_NAME = "qrgenerator_default.png";
 
     public static void main(String[] args) {
-
-        TestQRCode qr = new TestQRCode();
         File f = new File(PATH + FILE_NAME);
         String text = "Nunca confies en un ordenador que no puedas lanzar por una ventana";
+            /*TODO:fallando en deploy con gradle (reparar)
+        //try {
+            /*if (args == null || args.length == 0) {
+            printHelpAndExit(true);
+        } else {
+            int index = 0;
+            for (String flag : args) {
+                index++;
+                switch (flag) {
+                    case "-c": {
+                        text = args[index];
+                        break;
+                    }
+                    case "--code": {
+                        text = args[index];
+                        break;
+                    }
+                    case "-o": {
+                        f = new File(args[index].replaceAll(" ",""));
+                        break;
+                    }
+                    case "--object": {
+                        f = new File(args[index].replaceAll(" ",""));
+                        break;
+                    }
+                    default: {
+                        //printHelpAndExit(false);
+                        break;
+                    }
+
+                }
+            }
+        }*/
+      //  } catch (ArrayIndexOutOfBoundsException e) {
+            //System.out.println(e.getMessage());
+        //}
+
+
+        TestQRCode qr = new TestQRCode();
+
         try {
             qr.createQrCode(f, text, 300, 300);
-            System.out.println("QRCode Generated: " + f.getAbsolutePath());
+            System.out.println("qrcode generated : " + f.getAbsolutePath());
             String qrString = qr.decoder(f);
-            System.out.println("Text QRCode: " + qrString);
+            System.out.println("text qr : " + qrString);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
     }
@@ -66,5 +106,28 @@ public class TestQRCode {
         QRCodeReader reader = new QRCodeReader();
         Result result = reader.decode(bitmap);
         return result.getText();
+    }
+
+    private static void printHelpAndExit(boolean valid) {
+        String jarPath = TestQRCode.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+        String jarName = jarPath.substring(jarPath.lastIndexOf('/') + 1);
+
+        StringBuilder sb = new StringBuilder("Usage: java -jar ");
+        sb.append(jarName).append(" [option]\n");
+
+        sb.append("Options:\n");
+        sb.append("\t-h, --help\tmuestra este mensaje de ayuda\n");
+        sb.append("\t-c, --code\tmensaje para codificar a qr\n");
+        sb.append("\t-o, --object\tdestino de la codificacion\n");
+
+        sb.append("Examples:\n");
+        sb.append("\tjava -jar ").append(jarName).append(" -c necesito algo de cafe\n");
+        sb.append("\tjava -jar ").append(jarName).append(" -o <root>/Desktop/qr_generate.png (va a escribir el archivo en formato png sin importar la especificacion)");
+
+        System.out.println(sb.toString());
+        if (valid) {
+            System.exit(0);
+        }
+
     }
 }
