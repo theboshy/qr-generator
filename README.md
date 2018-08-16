@@ -1,6 +1,21 @@
-# QrCode_zwing
-generador de codigos QR con librerias de google zwing
+# QR Generator 
+Generador de codigos **QR** con use de las *librerias* de `google zwing`
 
 
-<img width="100"  heigth="100" style="display:inline-block" src="https://github.com/theboshy/QrCode_zwing/blob/master/QR/galerie/QRc.png"></img>
-<img width="100"  heigth="100" src="https://github.com/theboshy/QrCode_zwing/blob/master/QR/galerie/qrCode.png"></img>
+TODO: terminar readme
+
+## Build 
+
+```bash
+$ gradle build
+```
+## Run
+
+```bash
+$ gradle run 
+```
+
+> el alcanze final aun no esta compeltado debido a problemas con el deploy de gradle hay fallos al pasarle parametros al generador
+
+<img width="100"  heigth="100" style="display:inline-block" src="https://github.com/theboshy/QrCode_zwing/blob/master/galerie/QRc.png"></img>
+<img width="100"  heigth="100" src="https://github.com/theboshy/QrCode_zwing/blob/master/galerie/qrCode.png"></img>
