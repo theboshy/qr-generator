@@ -24,7 +24,7 @@ public class TestQRCode {
 
     public static void main(String[] args) {
         File f = new File(PATH + FILE_NAME);
-        String text = "Nunca confies en un ordenador que no puedas lanzar por una ventana";
+        String text = "Texto generico sin sentido para codificar";
             /*TODO:fallando en deploy con gradle (reparar)
         //try {
             /*if (args == null || args.length == 0) {
